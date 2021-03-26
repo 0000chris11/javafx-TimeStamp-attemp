@@ -6,6 +6,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch VL",
+            "request": "launch",
+            "mainClass": "com.cofii.timestamp.login.VL",
+            "vmArgs": "--module-path C:/C0F/Programming/JAVA/Programs/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
+            "projectName": "javafx-TimeStamp-attemp"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -15,7 +23,7 @@
             "name": "Launch App",
             "request": "launch",
             "vmArgs": "--module-path C:/C0F/Programming/JAVA/Programs/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
-            "mainClass": "com.cofii.main.App",
+            "mainClass": "com.cofii.timestamp.first.VF",
             "projectName": "javafx-TimeStamp-attemp"
         }
     ]
