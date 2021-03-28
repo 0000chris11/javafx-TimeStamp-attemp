@@ -26,6 +26,12 @@
     </dependency>
 
     <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.22</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.cofii</groupId>
       <artifactId>C0FII</artifactId>
       <version>1.0-SNAPSHOT</version>
