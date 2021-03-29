@@ -1,7 +1,12 @@
 package com.cofii.timestamp.first;
 
 import com.cofii.timestamp.data.DATA;
+import com.cofii.timestamp.data.SQL;
+import com.cofii.timestamp.first.querys.SelectTables;
+import com.cofii.timestamp.login.VLData;
 import com.cofii2.custom.LKCustom2;
+import com.cofii2.mysql.Connect;
+import com.cofii2.mysql.MSQLP;
 
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -24,7 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class VF extends Application {
+public class VF {
 
     private VFData dt = VFData.getInstance();
 
@@ -119,14 +124,17 @@ public class VF extends Application {
         layout.setBottom(bottom);
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    private void querys() {
+        MSQLP ms = new MSQLP(new Connect(SQL.getUrl(), SQL.getUser(), SQL.getPassword()));
+        ms.selectTables(new SelectTables());
+
+        if(!dt.isTableNamesExist()){
+            ms.executeQuery(SQL.CREATE_TABLE_NAMES, ac);
+        }
+        ms.close();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        dt.setWindow(stage);
-
+    public VF(){
         BorderPane layout = new BorderPane();
         layout.setTop(dt.getMenuBar());
         layout.setCenter(dt.getSplitPane());
@@ -136,9 +144,16 @@ public class VF extends Application {
         splitPaneConfig();
         statusConfig(layout);
 
+        querys();
+
         dt.setMainScene(new Scene(layout, LKCustom2.MAIN_FRAME_SIZE.width, LKCustom2.MAIN_FRAME_SIZE.height));
 
+
+        VLData.getInstance().getWindow().close();
         dt.getWindow().setScene(dt.getMainScene());
         dt.getWindow().show();
     }
+
+    
+
 }

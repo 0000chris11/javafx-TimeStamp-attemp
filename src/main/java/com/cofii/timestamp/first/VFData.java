@@ -1,5 +1,7 @@
 package com.cofii.timestamp.first;
 
+import com.cofii.timestamp.data.DATA;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,10 +19,10 @@ public class VFData {
     
     private static VFData instance;
 
-    private Stage window;//GIVEN FROM star (Application)
+    private Stage window = new Stage();//GIVEN FROM star (Application)
     private Scene mainScene;
 
-    private Menu menuOptions = new Menu("Options");
+    private Menu menuOptions = new Menu("_Options");
     private MenuItem menuItemChangeLog = new MenuItem("Change login or DB");
     private MenuItem menuItemShowTable = new MenuItem("Show tables info");
     private CheckMenuItem menuCheckAOT = new CheckMenuItem("Always On Top");
@@ -28,7 +30,7 @@ public class VFData {
 
     private Menu menuSelect = new Menu("Select");
 
-    private Menu menuTable = new Menu("Select");
+    private Menu menuTable = new Menu("_Tables");
     private Menu menuTableOptions = new Menu("Options");
     private CheckMenuItem menuTableCheckClearDeleted = new CheckMenuItem("Clear values when a row is deleted");
     private MenuItem menuTableItemReloadImageC = new MenuItem("Reload current ImageC directory");
@@ -54,6 +56,10 @@ public class VFData {
     private Button buttonFind = new Button("Find");
     private Button buttonUpdate = new Button("Update");
     private Button buttonAdd = new Button("Add");
+    //SQL VALUES
+    private boolean tableNamesExist = false;
+    private boolean tableDefaultExist = false;
+    private boolean tableConfigExist = false;
 
     private VFData(){
 
@@ -296,6 +302,30 @@ public class VFData {
 
     public void setButtonAdd(Button buttonAdd) {
         this.buttonAdd = buttonAdd;
+    }
+
+    public boolean isTableNamesExist() {
+        return tableNamesExist;
+    }
+
+    public void setTableNamesExist(boolean tableNamesExist) {
+        this.tableNamesExist = tableNamesExist;
+    }
+
+    public boolean isTableDefaultExist() {
+        return tableDefaultExist;
+    }
+
+    public void setTableDefaultExist(boolean tableDefaultExist) {
+        this.tableDefaultExist = tableDefaultExist;
+    }
+
+    public boolean isTableConfigExist() {
+        return tableConfigExist;
+    }
+
+    public void setTableConfigExist(boolean tableConfigExist) {
+        this.tableConfigExist = tableConfigExist;
     }
 
   
