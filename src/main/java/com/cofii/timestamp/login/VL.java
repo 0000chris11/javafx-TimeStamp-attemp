@@ -66,6 +66,11 @@ public class VL extends Application{
         
         //PASSWORD
         dt.getTfPass().setOnKeyReleased(e -> {
+            String lbText = dt.getLbPassword().getText();
+            if(!lbText.equals("Password")){
+                dt.getLbPassword().setText("Password");
+            }
+
             if(!dt.getTfPass().getText().isEmpty()){
                 dt.getLbPassword().setTextFill(Color.WHITE);
                 passwordOK = true;

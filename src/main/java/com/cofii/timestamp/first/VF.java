@@ -2,7 +2,9 @@ package com.cofii.timestamp.first;
 
 import com.cofii.timestamp.data.DATA;
 import com.cofii.timestamp.data.SQL;
-import com.cofii.timestamp.first.querys.SelectTables;
+import com.cofii.timestamp.data.SQLStatements;
+import com.cofii.timestamp.first.querys.ConnectionError;
+import com.cofii.timestamp.first.querys.SelectTablesFQ;
 import com.cofii.timestamp.login.VLData;
 import com.cofii2.custom.LKCustom2;
 import com.cofii2.mysql.Connect;
@@ -124,36 +126,53 @@ public class VF {
         layout.setBottom(bottom);
     }
 
-    private void querys() {
-        MSQLP ms = new MSQLP(new Connect(SQL.getUrl(), SQL.getUser(), SQL.getPassword()));
-        ms.selectTables(new SelectTables());
+    private boolean intiQuerys() {
+        MSQLP ms = new MSQLP(new Connect(SQL.getUrl(), SQL.getUser(), SQL.getPassword()), new ConnectionError());
+        if (!SQL.isWrongPassword()) {
+            dt.getLbTable().setText(SQL.getDatabase() + " - " + dt.getLbTable().getText());
+            ms.selectTables(new SelectTablesFQ());
 
-        if(!dt.isTableNamesExist()){
-            ms.executeQuery(SQL.CREATE_TABLE_NAMES, ac);
+            // TEST FOR A NEW DATABASE
+            if (!dt.isTableNamesExist()) {
+                boolean testTableNames = ms.executeUpdate(SQLStatements.CREATE_TABLE_NAMES);
+                System.out.println("table_names has been created?: " + testTableNames);
+            }
+
+            if (!dt.isTableDefaultExist()) {
+                ms.executeUpdate(SQLStatements.CREATE_TABLE_DEFAULT);
+            }
+
+            if (!dt.isTableConfigExist()) {
+                boolean testTableConfig = ms.executeUpdate(SQLStatements.CREATE_TABLE_CONFIG);
+                System.out.println("table_config has been created?: " + testTableConfig);
+            }
+
+            ms.close();
+
+            return true;
+        } else {
+            return false;
         }
-        ms.close();
     }
 
-    public VF(){
-        BorderPane layout = new BorderPane();
-        layout.setTop(dt.getMenuBar());
-        layout.setCenter(dt.getSplitPane());
+    public VF() {
+        if (intiQuerys()) {//IF THE CONNECTION IS WORKING
+            //------------------------------------------------
+            BorderPane layout = new BorderPane();
+            layout.setTop(dt.getMenuBar());
+            layout.setCenter(dt.getSplitPane());
 
-        menuItemsConfig();
-        gridConfig();
-        splitPaneConfig();
-        statusConfig(layout);
+            menuItemsConfig();
+            gridConfig();
+            splitPaneConfig();
+            statusConfig(layout);
 
-        querys();
+            dt.setMainScene(new Scene(layout, LKCustom2.MAIN_FRAME_SIZE.width, LKCustom2.MAIN_FRAME_SIZE.height));
 
-        dt.setMainScene(new Scene(layout, LKCustom2.MAIN_FRAME_SIZE.width, LKCustom2.MAIN_FRAME_SIZE.height));
-
-
-        VLData.getInstance().getWindow().close();
-        dt.getWindow().setScene(dt.getMainScene());
-        dt.getWindow().show();
+            VLData.getInstance().getWindow().close();
+            dt.getWindow().setScene(dt.getMainScene());
+            dt.getWindow().show();
+        }
     }
-
-    
 
 }

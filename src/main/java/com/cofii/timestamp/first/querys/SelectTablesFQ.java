@@ -7,10 +7,14 @@ import java.util.List;
 
 import com.cofii.timestamp.data.SQL;
 import com.cofii.timestamp.first.VFData;
+import com.cofii.timestamp.login.VLData;
 import com.cofii2.methods.MList;
 import com.cofii2.myInterfaces.IActions;
 
-public class SelectTables implements IActions{
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+
+public class SelectTablesFQ implements IActions{
 
     private List<String> listTables = new ArrayList<>();
     private VFData dt = VFData.getInstance();
