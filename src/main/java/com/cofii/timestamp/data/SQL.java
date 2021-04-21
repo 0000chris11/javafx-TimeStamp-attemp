@@ -1,6 +1,6 @@
 package com.cofii.timestamp.data;
 
-import com.cofii2.mysql.DefaultConnection;
+import com.cofii2.mysql.RootConfigConnection;
 
 public class SQL {
     // BAND WORDS
@@ -21,7 +21,7 @@ public class SQL {
     private static boolean wrongPassword = false;
 
     public static void setCurrentURL(String user, String password, String database) {
-        SQL.url = "jdbc:mysql://localhost:3306/" + database + DefaultConnection.CONNECTION_PROPS;
+        SQL.url = "jdbc:mysql://localhost:3306/" + database + RootConfigConnection.CONNECTION_PROPS;
         SQL.user = user;
         SQL.password = password;
         SQL.database = database;

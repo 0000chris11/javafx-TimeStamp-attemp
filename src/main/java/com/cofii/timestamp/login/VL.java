@@ -8,7 +8,7 @@ import com.cofii.timestamp.first.VF;
 import com.cofii.timestamp.login.querys.SelectDatabases;
 import com.cofii.timestamp.login.querys.SelectUsers;
 import com.cofii2.methods.MList;
-import com.cofii2.mysql.DefaultConnection;
+import com.cofii2.mysql.RootConfigConnection;
 import com.cofii2.mysql.MSQLP;
 
 import javafx.application.Application;
@@ -35,7 +35,7 @@ public class VL extends Application{
     private boolean dbOK = true;
 
     private void querys(){
-        MSQLP ms = new MSQLP(new DefaultConnection());
+        MSQLP ms = new MSQLP(new RootConfigConnection());
         ms.selectUsers(new SelectUsers());
         ms.selectDatabases(new SelectDatabases());
 
